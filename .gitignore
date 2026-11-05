@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.pytest_cache/
+veri/ham/
+geri.log
+*.tmp
+*.log

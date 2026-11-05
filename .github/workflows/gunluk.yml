@@ -1,0 +1,48 @@
+name: Günlük güncelleme
+
+on:
+  schedule:
+    - cron: "30 4 * * *"    # 07:30 Türkiye saati
+    - cron: "30 10 * * *"   # 13:30, Wikimedia listesi geç yayımlanırsa diye
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gunluk
+  cancel-in-progress: false
+
+jobs:
+  guncelle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bağımlılıklar ve testler
+        run: |
+          pip install -q -r requirements.txt pytest
+          python -m pytest -q testler
+
+      - name: Eksik günleri işle
+        working-directory: betikler
+        env:
+          PYTHONUTF8: "1"
+        run: python uret.py
+
+      - name: Depoya yaz
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/veri
+          if git diff --cached --quiet; then
+            echo "değişiklik yok"
+          else
+            git commit -m "Veri: $(python -c 'import json;print(json.load(open("site/veri/son.json"))["son"])')"
+            git push
+          fi

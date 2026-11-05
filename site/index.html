@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Türkiye bugün neyi merak etti?</title>
+<meta name="description" content="Türkçe Vikipedi'de her gün en çok okunan ve birdenbire merak edilen maddeler. 2015'ten bugüne takvim, madde arama.">
+<meta property="og:title" content="Türkiye bugün neyi merak etti?">
+<meta property="og:description" content="Türkçe Vikipedi'de her gün birdenbire merak edilen maddeler. Doğum gününüzde Türkiye neyi merak etti?">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://birtohum.github.io/turkiye-merak/">
+<meta property="og:image" content="https://birtohum.github.io/turkiye-merak/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ff4b1f'/%3E%3Ctext x='32' y='47' font-size='44' font-family='Arial' font-weight='900' text-anchor='middle' fill='%23fff8ec'%3E%3F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<header class="ust">
+  <div class="kap">
+    <div class="kunye"><span>Türkçe Vikipedi okumalarından · her gün</span><span id="sayi-no"></span></div>
+    <a class="logo" href="./">Türkiye bugün neyi merak etti?</a>
+    <nav class="gun-sec" aria-label="Gün seç">
+      <button id="geri" class="ok" aria-label="Önceki gün">‹</button>
+      <label class="tarih-kutu">
+        <span id="gun-adi">Yükleniyor…</span>
+        <input type="date" id="tarih" aria-label="Tarih seç">
+      </label>
+      <button id="ileri" class="ok" aria-label="Sonraki gün">›</button>
+    </nav>
+  </div>
+  <div class="serit" aria-label="Günün birden merak edilenleri"><div class="serit-ic" id="serit"></div></div>
+  <div class="kap">
+    <div id="manset" class="manset" aria-live="polite"><p class="kucuk">Yükleniyor…</p></div>
+    <ul class="menu">
+      <li><a href="#patlayanlar">Birden merak edilenler</a></li>
+      <li><a href="#encok">En çok okunanlar</a></li>
+      <li><a href="#dogum">Doğum gününde</a></li>
+      <li><a href="#takvim">Takvim</a></li>
+      <li><a href="#ara">Bir madde ara</a></li>
+      <li><a href="#nasil">Nasıl hesaplanıyor?</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="kap">
+  <section id="patlayanlar">
+    <h2>Birden merak edilenler</h2>
+    <p class="aciklama">Normalde az okunan, o gün <b>birdenbire</b> çok okunan maddeler. Büyük sayı, maddenin o gün kendi olağan gününden <b>kaç kat</b> fazla okunduğunu gösterir.</p>
+    <div id="kartlar" class="kartlar"><p class="kucuk">Yükleniyor…</p></div>
+  </section>
+
+  <section id="encok">
+    <h2>En çok okunanlar</h2>
+    <p class="aciklama">O gün en çok okunan 20 madde. Anasayfa, arama sayfası gibi madde olmayan sayfalar ve bot şüphesi taşıyanlar çıkarıldı.</p>
+    <ol id="liste" class="liste"></ol>
+    <p id="filtre-not" class="kucuk"></p>
+  </section>
+
+  <section id="dogum" class="dogum">
+    <h2>Doğum gününde Türkiye neyi merak etti?</h2>
+    <p class="aciklama">Doğum gününüzü (ya da önemli bir günü) seçin; 2015'ten bu yana her yıl o gün Türkçe Vikipedi'de birden merak edilen maddeyi görün.</p>
+    <form id="dogum-form" class="dogum-form">
+      <select id="dogum-gun" aria-label="Gün"></select>
+      <select id="dogum-ay" aria-label="Ay"></select>
+      <button type="submit">Göster</button>
+    </form>
+    <ol id="dogum-liste" class="dogum-liste"></ol>
+    <p id="dogum-paylas" hidden><button class="bag" id="paylas-dugme">Bu sayfayı paylaş</button> <span id="paylas-not" class="kucuk"></span></p>
+  </section>
+
+  <section id="takvim">
+    <h2>Takvim</h2>
+    <p class="aciklama">Bir ay seçin; her günün en büyük “birden merak edilen” maddesi listelenir. Güne basınca o günün sayfası açılır.</p>
+    <div id="yillar" class="dugmeler"></div>
+    <div id="aylar" class="dugmeler"></div>
+    <ol id="ay-listesi" class="ay-listesi"></ol>
+    <h3>Türkçe Vikipedi günde kaç kez okunuyor?</h3>
+    <p class="aciklama">Bütün sayfaların günlük toplam okunması (insan okuyucular). Gri bant, Vikipedi'ye Türkiye'den erişimin engellendiği dönem.</p>
+    <div id="toplam-grafik" class="grafik"></div>
+  </section>
+
+  <section id="ara">
+    <h2>Bir madde ara</h2>
+    <p class="aciklama">Bir maddenin 2015'ten bu yana her gün kaç kez okunduğunu görün. Turuncu noktalar, bu sitenin o maddeyi “birden merak edilen” olarak yakaladığı günler.</p>
+    <form id="ara-form" class="ara-form" autocomplete="off">
+      <input id="ara-kutu" type="search" placeholder="Örneğin: Mustafa Kemal Atatürk" list="oneriler" aria-label="Madde adı">
+      <datalist id="oneriler"></datalist>
+      <button type="submit">Göster</button>
+    </form>
+    <div id="ara-sonuc"></div>
+  </section>
+
+  <section id="nasil" class="nasil">
+    <h2>Nasıl hesaplanıyor?</h2>
+    <div class="sutunlar">
+      <div>
+        <h3>Veri</h3>
+        <p>Wikimedia Vakfı'nın herkese açık <a href="https://wikimedia.org/api/rest_v1/">Pageviews</a> verisi: Türkçe Vikipedi'de her gün en çok okunan ~1000 sayfa ve maddelerin günlük okunma sayısı. Yalnız “insan okuyucu” olarak sınıflanan okumalar sayılır. Liste her sabah GitHub Actions ile kendiliğinden güncellenir.</p>
+        <h3>“Birden merak edilen” ne demek?</h3>
+        <p>Her madde kendisiyle karşılaştırılır. Önceki 28 günün <b>ortanca</b> okunma sayısı o maddenin “olağan günü”dür. O gün en az <b>1.500</b> kez okunan ve olağan gününün en az <b>5 katına</b> çıkan maddeler seçilir; “fazladan” okuma sayısına göre sıralanır, ilk 10 gösterilir. Kat hesabında olağan gün 10'dan az sayılmaz.</p>
+        <h3>Kısa notlar</h3>
+        <p>Kartlardaki notlar yalnız sayılardan çıkar (ör. “bir gün önce de yükselmeye başlamıştı”). Bir maddenin <b>neden</b> merak edildiğini yazmıyoruz; tahmin yürütmemek için. Kısa açıklama ve resim Vikipedi/Vikiveri'den gelir.</p>
+      </div>
+      <div>
+        <h3>Neleri çıkarıyoruz?</h3>
+        <ul>
+          <li><b>Madde olmayan sayfalar:</b> Anasayfa, Özel:Ara, Kullanıcı:, Kategori:, Dosya:, Şablon:, Vikipedi: ve benzeri.</li>
+          <li><b>Bot şüphesi:</b> okumaların %95'ten fazlası yalnız masaüstünden ya da %98'den fazlası yalnız mobil siteden geliyorsa (gerçek ilgide ikisi karışık olur).</li>
+          <li><b>Yetişkin içerik:</b> başlığında ya da Vikipedi kategorilerinde pornografi, erotik, cinsel ilişki gibi ifadeler geçen maddeler gizlenir. Bu temkinli bir süzgeçtir; bazen gerekmeyen bir maddeyi de gizleyebilir.</li>
+        </ul>
+        <h3>Sınırlar</h3>
+        <ul>
+          <li>Türkçe Vikipedi okurları yalnız Türkiye'de değil; Kıbrıs, Almanya, Azerbaycan ve başka yerlerden okuyanlar da sayılır.</li>
+          <li>Günler UTC'ye göredir: Türkiye saatiyle 03:00'ten ertesi gün 03:00'e.</li>
+          <li>29 Nisan 2017 – 26 Aralık 2019 arasında Vikipedi'ye Türkiye'den erişim engelliydi; bu dönemde okumalar çok düşüktür.</li>
+          <li>Bot ayıklaması kusursuz değildir; özellikle 2020 öncesinde bazı otomatik okumalar insan olarak sayılmış olabilir.</li>
+          <li>Wikimedia en çok okunanlar listesini ~1000 sayfayla sınırlar; daha az okunan maddeler listeye giremez.</li>
+          <li>Açıklama, resim ve kategoriler maddenin <b>bugünkü</b> hâlinden alınır.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="alt">
+  <div class="kap">
+    <p>Veri: <a href="https://wikimedia.org/api/rest_v1/">Wikimedia Pageviews API</a> (CC0) · Madde metinleri ve resimleri Vikipedi katkıcılarına aittir. · Kod: <a href="https://github.com/birtohum/turkiye-merak">github.com/birtohum/turkiye-merak</a> (Apache-2.0) · <span id="uretim"></span></p>
+  </div>
+</footer>
+<div id="ipucu" class="ipucu" role="status" hidden></div>
+<script src="uygulama.js"></script>
+</body>
+</html>
